@@ -26,26 +26,31 @@ def register(request):
         email = request.POST.get('email')
         username = request.POST.get('username')
         full_name = request.POST.get('full_name')
-        # gender = request.POST.get('gender')
+        role = request.POST.get('role')  
         city = request.POST.get('city')
         state = request.POST.get('state')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
+        
         if password == confirm_password:
+            
             user = SocialUser(
                 email=email,
                 username=username,
                 full_name=full_name,
-                # gender=gender,
+                role=role,  
                 city=city,
                 state=state
             )
             user.set_password(password)  
             user.save()
 
-            login(request, user) 
-            return redirect('index') 
+            
+            login(request, user)
+
+            
+            return redirect('index')
         else:
             
             return render(request, 'register.html', {'error': 'Passwords do not match'})

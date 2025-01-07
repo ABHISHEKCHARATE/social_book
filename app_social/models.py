@@ -20,12 +20,12 @@ class SocialUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
     full_name = models.CharField(max_length=255)
-    # gender_choices = (
-    #     ('Male', 'Male'),
-    #     ('Female', 'Female'),
-    # )
+    role_choices = (
+        ('Author', 'Author'),
+        ('Seller', 'Seller'),
+    )
     
-    # gender = models.CharField(max_length=6, choices=gender_choices)
+    role = models.CharField(max_length=6, choices=role_choices,default='Author')
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     location = models.CharField(max_length=200, blank=True)
