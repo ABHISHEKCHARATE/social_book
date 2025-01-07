@@ -152,7 +152,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-f$$mf8z6n0o5mx6kt%3k1h-*^=+lx)*^+&rbzf-ks$32!1)t+c"
 DEBUG = True
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'app_social.SocialUser' 
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -194,11 +194,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "social_books.wsgi.application"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+'default': {
+'ENGINE': 'django.db.backends.postgresql',
+'NAME': 'social',
+'USER': 'postgres',
+'PASSWORD': '123',
+'HOST': 'localhost',
+'PORT': '5432', # default PostgreSQL port
 }
+}
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
