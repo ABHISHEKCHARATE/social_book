@@ -200,7 +200,8 @@ DATABASES = {
 'USER': 'postgres',
 'PASSWORD': '123',
 'HOST': 'localhost',
-'PORT': '5432', # default PostgreSQL port
+'PORT': '5432',
+
 }
 }
 
@@ -234,7 +235,12 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+BASE_DIRR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# This is where media files will be stored, pointing to 'books/media' folder
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = MEDIA_DIR 
+
+# Absolute path to the directory where media files will be stored
+MEDIA_ROOT = os.path.join(BASE_DIRR, 'books', 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -44,4 +44,18 @@ class SocialUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+  
 
+class Book(models.Model):
+    user = models.ForeignKey(SocialUser, on_delete=models.CASCADE, related_name='books')  
+    title = models.CharField(max_length=255)  
+    author = models.CharField(max_length=255) 
+    description = models.TextField()  
+    genre = models.CharField(max_length=100) 
+    
+    file = models.FileField(upload_to='books/files/')  
+    created_at = models.DateTimeField(auto_now_add=True)  
+    updated_at = models.DateTimeField(auto_now=True) 
+    extracted_text = models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.title
