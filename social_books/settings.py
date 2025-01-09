@@ -161,7 +161,50 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'app_social',
+    'rest_framework',
+    'rest_framework.authtoken',  
+    'djoser',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+
+import os
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+
+# EMAIL_HOST_USER = 'charateabhishek3@gmail.com'
+# EMAIL_HOST_PASSWORD = 'AbhiCharate_123'
+
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'charateabhishek3@gmail.com') 
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'AbhiCharate_123')  
+
+EMAIL_HOST_PASSWORD = 'gpqb dajp fqzc njle'  
+
+
+
+
+
+# DJOSER = {
+#     'LOGIN_FIELD': 'username',  
+# }
+
+
+# DJOSER = {
+#     'TOKEN_MODEL': 'rest_framework.authtoken.models.Token', 
+# }
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -244,3 +287,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIRR, 'books', 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

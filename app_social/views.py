@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
 from .models import SocialUser
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .models import Book
 from PyPDF2 import PdfReader
+from django.core.mail import send_mail
+from django.http import HttpResponse
 import os
 
 def login_view(request):
@@ -63,6 +63,12 @@ def register(request):
 
     return render(request, 'register.html')
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def user_logout(request):
+    logout(request)
+    return redirect('login') 
 @login_required
 def index(request):
     return render(request, 'index.html')
@@ -165,4 +171,80 @@ def book_view(request):
 
 
 
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
+def send_email(request): 
+    try:
+        send_mail(
+            'Subject: Welcome to Django Email',
+            'This is a test email from Django.',
+            'charateabhishek3@gmail.com',  
+            ['abhicharate02@gmail.com'], 
+            fail_silently=False,
+        )
+        return HttpResponse('Email sent successfully!')
+    except Exception as e:
+        return HttpResponse(f'Error sending email: {e}')
+
+
+
+
+# from django.http import JsonResponse
+# from .models import Book
+
+# def rest_book_view(request):
+#     if request.method != 'GET':
+#         return JsonResponse({"error": "Only GET method is allowed."}, status=405)
+#     books = Book.objects.all()
+#     books_data = []
+#     for book in books:
+#         books_data.append({
+#             "title": book.title,
+#             "author": book.author,
+#             "description": book.description,
+#             "genre": book.genre,
+#             "created_at": book.created_at,
+#             "updated_at": book.updated_at,
+#             "extracted_text": book.extracted_text,
+#             "file_url": book.file.url if book.file else None
+#         })
+#     return JsonResponse({"books": books_data})
+
+
+
+
+# # views.py
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework.permissions import AllowAny
+# from rest_framework.authtoken.models import Token
+# from .models import SocialUser
+# from django.contrib.auth import authenticate
+
+# class LoginView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         username = request.data.get('username')
+#         password = request.data.get('password')
+#         user = authenticate(username=username, password=password)
+
+#         if user:
+#             token, created = Token.objects.get_or_create(user=user)
+#             return Response({"token": token.key})
+#         return Response({"error": "Invalid credentials"}, status=400)
+
+
+# def file_access(request, file_id):
+#     book = get_object_or_404(Book, id=file_id)
+    
+    
+#     if book.file:
+#         return JsonResponse({
+#             "file_url": book.file.url
+#         })
+#     else:
+#         return JsonResponse({
+#             "error": "File not found"
+#         })
