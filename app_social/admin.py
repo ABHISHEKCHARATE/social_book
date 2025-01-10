@@ -11,7 +11,7 @@ class SocialUserAdmin(UserAdmin):
     list_filter = ('is_staff', 'is_active', 'city', 'state')
     fieldsets = (
         (None, {'fields': ('email', 'username', 'password')}),
-        ('Personal info', {'fields': ('full_name',  'city', 'state', 'location')}),
+        ('Personal info', {'fields': ('full_name',  'city', 'state', 'date_of_birth', 'age')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -25,3 +25,15 @@ class SocialUserAdmin(UserAdmin):
     ordering = ('email',)
 
 admin.site.register(SocialUser, SocialUserAdmin)
+
+from django.contrib import admin
+from .models import UploadedFile
+
+@admin.register(UploadedFile)
+class UploadedFileAdmin(admin.ModelAdmin):
+    list_display = ('file_name', 'user', 'uploaded_at', 'file_link')
+
+    def file_link(self, obj):
+        return f'<a href="{obj.file_url}" target="_blank">View File</a>'
+    file_link.allow_tags = True
+    file_link.short_description = 'File URL'

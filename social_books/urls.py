@@ -26,7 +26,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('app_social.urls')), 
+    path('', include('app_social.urls')),
+    # path('api/', include('api.urls')), 
     # path('books/', include('app_social.urls')),
     # path('api/auth/', include('djoser.urls')),  # Authentication endpoints
     # path('api/auth/token/', include('djoser.urls.authtoken'))  # Token login endpoint

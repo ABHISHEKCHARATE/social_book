@@ -174,7 +174,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
-
+DJOSER = {
+    'LOGIN_FIELD': 'username',
+    'SERIALIZERS': {
+        'user': 'app_social.serializers.SocialUserSerializer',  # Optional customization
+    },
+}
 
 import os
 

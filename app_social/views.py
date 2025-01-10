@@ -37,6 +37,8 @@ def register(request):
         state = request.POST.get('state')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        date_of_birth = request.POST.get('date_of_birth')
+
 
         
         if password == confirm_password:
@@ -47,7 +49,8 @@ def register(request):
                 full_name=full_name,
                 role=role,  
                 city=city,
-                state=state
+                state=state,
+                date_of_birth=date_of_birth,
             )
             user.set_password(password)  
             user.save()
